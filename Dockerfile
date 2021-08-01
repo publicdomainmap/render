@@ -3,7 +3,8 @@ FROM openjdk:17-slim-buster
 MAINTAINER Arne Schubert <atd.schubert@gmail.com>
 
 ARG OSMOSIS_URL="https://github.com/openstreetmap/osmosis/releases/download/0.48.3/osmosis-0.48.3.tgz"
-ARG OSM2PGSQL_URL="https://github.com/openstreetmap/osm2pgsql/archive/refs/tags/1.5.1.tar.gz"
+ARG OSM2PGSQL_VERSION=1.5.1
+ARG OSM2PGSQL_URL="https://github.com/openstreetmap/osm2pgsql/archive/refs/tags/$OSM2PGSQL_VERSION.tar.gz"
 ENV OSMOSIS_URL $OSMOSIS_URL
 ENV OSM2PGSQL_URL $OSM2PGSQL_URL
 
@@ -34,7 +35,7 @@ RUN set -x \
 # osm2pgsql
 RUN mkdir /opt/osm2pgsql \
     && curl -L $OSM2PGSQL_URL | tar xz -C /opt/osm2pgsql \
-    && cd /opt/osm2pgsql/osm2pgsql-1.4.2 \
+    && cd /opt/osm2pgsql/osm2pgsql-$OSM2PGSQL_VERSION \
     && mkdir ./build \
     && cd ./build \
     && cmake .. \
